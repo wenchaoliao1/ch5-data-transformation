@@ -1,0 +1,47 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+```{r}
+#library(nycflight13)
+library("nycflights13", lib.loc="~/R/win-library/3.4")
+library(tidyverse)
+```
+```{r}
+flights
+View(flights)
+filter(flights, month == 1 & day == 1)
+```
+```{r}
+jan1 <- filter(flights, month == 1, day == 1)
+(dec25 <- filter(flights, month == 12, day == 25))
+```
+```{r}
+nov_dec <- filter(flights, month %in% c(11, 12))
+View(nov_dec)
+
+filter(flights, !(arr_delay > 120 | dep_delay > 120))
+filter(flights, arr_delay <= 120, dep_delay <= 120)
+```
+```{r}
+x <- NA
+is.na(x)
+
+df <- tibble(x = c(1, NA, 3))
+filter(df, x > 1)
+filter(df, is.na(x) | x > 1)
+```
+```{r}
+arrange(flights, year, month, day)
+View(arrange(flights, day, month, year))
+arrange(flights, desc(arr_delay))
+```
+```{r}
+df <- tibble(x = c(5, 2, NA))
+arrange(df, x)
+arrange(df, desc(x))
+```
+
+
