@@ -55,5 +55,8 @@ select(flights, -(year:day))
 ```{r}
 rename(flights, tail_num = tailnum)
 ```
+```{r}
+select(flights, time_hour, air_time, everything())
+```
 
 
