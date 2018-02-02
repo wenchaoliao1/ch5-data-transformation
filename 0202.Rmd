@@ -46,5 +46,8 @@ arrange(df, desc(x))
 ```{r}
 select(flights, year, month, day)
 ```
+```{r}
+select(flights, year:day)
+```
 
 
