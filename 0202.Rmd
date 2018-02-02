@@ -52,5 +52,8 @@ select(flights, year:day)
 ```{r}
 select(flights, -(year:day))
 ```
+```{r}
+rename(flights, tail_num = tailnum)
+```
 
 
