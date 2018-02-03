@@ -84,5 +84,76 @@ transmute(flights,
   gain_per_hour = gain / hours
 )
 ```
+```{r}
+y <- c(1, 2, 2, NA, 3, 4)
+min_rank(y)
+```
+```{r}
+min_rank(desc(y))
+```
+```{r}
+summarise(flights, delay = mean(dep_delay, na.rm = TRUE))
+```
+```{r}
+by_day <- group_by(flights, year, month, day)
+summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
+```
+```{r}
+mean_dep_delay <- group_by(flights, year, month, day) %>%
+summarise(delay = mean(dep_delay, na.rm = TRUE))
+mean_dep_delay
+```
+```{r}
+View(by_day)
+
+by_month_mean_dep_delay <- group_by(flights, month) %>%
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+by_month_mean_dep_delay
+
+#can directly printout if without the by_month_mdean_dep_delay assignment
+group_by(flights, month) %>% 
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+
+# this is the best code
+flights %>% 
+  group_by(month) %>% 
+  summarise(delay = mean(dep_delay, na.rm = TRUE))
+
+```
+```{r}
+delays <- flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  filter(count > 20, dest != "HNL")
+
+ggplot(data = delays, mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+```{r}
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay, na.rm = TRUE))
+```
+```{r}
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay))
+```
+```{r}
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay))
+```
 
 
